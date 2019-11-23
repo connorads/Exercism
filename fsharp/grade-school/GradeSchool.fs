@@ -19,6 +19,7 @@ let roster (school: School): string list =
     |> List.concat
 
 let grade (number: int) (school: School): string list =
-    Map.tryFind number school
+    school
+    |> Map.tryFind number
     |> Option.map List.sort
     |> Option.defaultValue []
