@@ -7,7 +7,7 @@ let classify n : Classification option =
     | num when num < 1 -> None
     | num when num = 1 -> Some Deficient
     | _ ->
-        seq { 1 .. n-1 }
+        seq { 1 .. n/2 }
         |> Seq.where (fun i -> n % i = 0)
         |> Seq.sum
         |> function
