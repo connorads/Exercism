@@ -10,6 +10,7 @@ let add (student: string) (grade: int) (school: School): School =
         |> Map.tryFind grade
         |> Option.map (fun students -> student :: students)
         |> Option.defaultValue [student]
+    
     school
     |> Map.add grade students
 
