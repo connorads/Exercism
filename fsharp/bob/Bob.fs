@@ -4,7 +4,7 @@ open System.Text.RegularExpressions
 
 let response (input: string): string =
     let yelling = input = input.ToUpper() && Regex.IsMatch(input, @"[a-zA-Z]")
-    let silence = input.Replace(@"\r\n", "").Trim() = ""
+    let silence = input.Trim() = ""
     let question = input.TrimEnd().EndsWith("?")
     
     if silence
