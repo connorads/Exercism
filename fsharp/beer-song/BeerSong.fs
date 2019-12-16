@@ -1,35 +1,34 @@
 ﻿module BeerSong
 
-let recite (startBottles: int) (takeDown: int) =
-    let getBottleWord numberOfBottles =
+let bottleWord numberOfBottles =
         if numberOfBottles = 1
         then "bottle"
         else "bottles"
-    let getQuantityWord numberOfBottles zeroQuantityWord =
-        if numberOfBottles > 0
-        then string numberOfBottles
-        else zeroQuantityWord
+
+let quantityWord numberOfBottles =
+        if numberOfBottles = 0
+        then "No more"
+        else string numberOfBottles
     
-    let getFirstSentence currentNumberOfBottles = 
-        let firstQuantity = getQuantityWord currentNumberOfBottles "No more"
-        let secondQuantity = getQuantityWord currentNumberOfBottles "no more"
-        let bottle = getBottleWord currentNumberOfBottles
-        let firstSentence = sprintf "%s %s of beer on the wall, %s %s of beer." firstQuantity bottle secondQuantity bottle
+let firstSentence numberOfBottles = 
+        let quantity = quantityWord numberOfBottles
+        let bottle = bottleWord numberOfBottles
         
-        firstSentence
+        sprintf "%s %s of beer on the wall, %s %s of beer." quantity bottle (quantity.ToLower()) bottle
     
-    let getSecondSentence currentNumberOfBottles =
-        let nextNumberOfBottles = currentNumberOfBottles - 1
+let secondSentence numberOfBottles =
+        let nextNumberOfBottles = numberOfBottles - 1
         let bottlePronoun = if nextNumberOfBottles = 0 then "it" else "one"
-        let quantity = getQuantityWord nextNumberOfBottles "no more"
-        let bottle = getBottleWord nextNumberOfBottles
-        let secondSentence =
-            if nextNumberOfBottles >= 0
-            then sprintf "Take %s down and pass it around, %s %s of beer on the wall." bottlePronoun quantity bottle
-            else "Go to the store and buy some more, 99 bottles of beer on the wall."
-            
-        secondSentence
-    
-    [ for n in 0 .. (takeDown - 1) do
-         yield! [ ""; getFirstSentence (startBottles - n); getSecondSentence (startBottles - n) ] ]
-         |> List.tail
+        let quantity = quantityWord nextNumberOfBottles
+        let bottle = bottleWord nextNumberOfBottles
+       
+        if nextNumberOfBottles >= 0
+        then sprintf "Take %s down and pass it around, %s %s of beer on the wall." bottlePronoun (quantity.ToLower()) bottle
+        else "Go to the store and buy some more, 99 bottles of beer on the wall."
+
+let recite (startBottles: int) (takeDown: int) =
+    let verse bottle = [ ""; firstSentence bottle; secondSentence bottle ]
+    let endBottles = startBottles - takeDown + 1
+    [startBottles .. -1 .. endBottles]
+    |> List.collect verse 
+    |> List.tail
