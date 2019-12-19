@@ -1,26 +1,27 @@
 module Bob exposing (hey)
 
-import Regex
 import String
 
 
-letters : Regex.Regex
-letters =
-    Maybe.withDefault Regex.never <|
-        Regex.fromString "[a-zA-Z]"
+isLetter : Char -> Bool
+isLetter char =
+    Char.isUpper char || Char.isLower char
 
 
 hey : String -> String
 hey remark =
     let
+        trimmedRemark =
+            String.trim remark
+
         question =
-            remark |> String.trim |> String.endsWith "?"
+            String.endsWith "?" trimmedRemark
 
         yelling =
-            remark == String.toUpper remark && Regex.contains letters remark
+            trimmedRemark == String.toUpper trimmedRemark && String.any isLetter trimmedRemark
 
         silence =
-            String.trim remark |> String.isEmpty
+            String.isEmpty trimmedRemark
     in
     if silence then
         "Fine. Be that way!"
