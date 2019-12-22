@@ -3,4 +3,6 @@
 .lein-plugins/
 .lein-failures
 
+.nrepl-port
+
 target/
