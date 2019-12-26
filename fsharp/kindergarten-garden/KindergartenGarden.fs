@@ -12,6 +12,7 @@ let toPlant char =
     | 'C' -> Clover
     | 'G' -> Grass
     | 'V' -> Violets
+    | _ -> failwith "Unrecognised character, cannot determine Plant"
 
 let toPlants amount line =
     line
@@ -19,20 +20,14 @@ let toPlants amount line =
     |> Seq.map toPlant
     |> Seq.toList
 
-let getPosition student =
-    match student with
-    | "Alice" -> 0
-    | "Bob" -> 2 
-    | "Charlie" -> 4 
-    | "David" -> 6
-    | "Eve" -> 8
-    | "Fred" -> 10
-    | "Ginny" -> 12
-    | "Harriet" -> 14    
-    | "Ileana" -> 16
-    | "Joseph" -> 18
-    | "Kincaid" -> 20
-    | "Larry" -> 22
+let toNumber (letter: char) =
+    int (System.Char.ToLower letter) - int 'a'
+
+let getPosition (student: string) =
+    let letterNumber = toNumber student.[0]
+    if (letterNumber < 0 || letterNumber > 11)
+    then failwith "Student's name must start with A-L"
+    else 2 * letterNumber
 
 let plants (diagram: string) student =    
     diagram.Split "\n"

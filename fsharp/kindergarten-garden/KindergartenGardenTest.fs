@@ -70,3 +70,17 @@ let ``Full garden - last student's garden`` () =
     let expected = [Plant.Grass; Plant.Violets; Plant.Clover; Plant.Violets]
     plants diagram student |> should equal expected
 
+[<Fact>]
+let ``Unrecognised plant in garden`` () =
+    let student = "Alice"
+    let diagram = "ZZ\nZZ"
+    (fun () -> plants diagram student |> ignore)
+    |> should (throwWithMessage "Unrecognised character, cannot determine Plant") typeof<System.Exception>
+    
+[<Fact>]
+let ``Student name not starting with A-L`` () =
+    let student = "Mara"
+    let diagram = "RC\nGG"
+    (fun () -> plants diagram student |> ignore)
+    |> should (throwWithMessage "Student's name must start with A-L") typeof<System.Exception>
+
