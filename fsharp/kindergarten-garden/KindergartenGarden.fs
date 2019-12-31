@@ -14,12 +14,6 @@ let toPlant char =
     | 'V' -> Violets
     | _ -> failwith "Unrecognised character, cannot determine Plant"
 
-let toPlants amount line =
-    line
-    |> Seq.take amount
-    |> Seq.map toPlant
-    |> Seq.toList
-
 let toNumber (letter: char) =
     int (System.Char.ToLower letter) - int 'a'
 
@@ -31,6 +25,7 @@ let getPosition (student: string) =
 
 let plants (diagram: string) student =    
     diagram.Split "\n"
-    |> Seq.map (Seq.skip (getPosition student))
-    |> Seq.map (toPlants 2)
-    |> List.concat
+    |> Seq.collect (Seq.skip (getPosition student)
+                    >> Seq.take 2
+                    >> Seq.map toPlant)
+    |> Seq.toList
