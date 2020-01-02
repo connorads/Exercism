@@ -5,12 +5,14 @@ open System
 let handleErrorByThrowingException() = failwith "Oh noes"
 
 let handleErrorByReturningOption (input: string) =
-    try Some (int input)
-    with | _ -> None
+    match System.Int32.TryParse(input) with
+    | (true,int) -> Some(int)
+    | _ -> None
 
 let handleErrorByReturningResult (input: string) =
-    try Ok (int input)
-    with | _ -> Error "Could not convert input to integer"
+    match System.Int32.TryParse(input) with
+    | (true,int) -> Ok(int)
+    | _ -> Error "Could not convert input to integer"
 
 let bind switchFunction twoTrackInput =
     twoTrackInput |> Result.bind switchFunction
