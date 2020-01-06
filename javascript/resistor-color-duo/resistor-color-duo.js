@@ -1,6 +1,6 @@
-export const decodedValue = (array) => {
-    let first = COLORS.indexOf(array[0]).toString();
-    let second = COLORS.indexOf(array[1]).toString();
+export const decodedValue = ([color1, color2]) => {
+    let first = COLORS.indexOf(color1).toString();
+    let second = COLORS.indexOf(color2).toString();
     return parseInt(first + second);
 };
 
