@@ -22,8 +22,8 @@ let turn nextDirection robot  =
     {robot with direction = (nextDirection robot.direction)}
 
 let advance robot = 
-    let add (x1, y1) (x2, y2) =
-        (x1 + x2, y1 + y2)
+    let applyDelta (positionX, positionY) (deltaX, deltaY) =
+        (positionX + deltaX, positionY + deltaY)
 
     let delta direction =
         match direction with
@@ -32,9 +32,9 @@ let advance robot =
         | South -> (0, -1)
         | East -> (1, 0)
             
-    {robot with position = add robot.position (delta robot.direction)}
+    {robot with position = applyDelta robot.position (delta robot.direction)}
 
-let action instruction = 
+let execute instruction = 
     match instruction with
     | 'R' -> turn right
     | 'L' -> turn left 
@@ -44,8 +44,6 @@ let action instruction =
 let create direction position =
     { direction = direction; position = position }
 
-let move instructions robot =         
-    instructions
-    |> Seq.map action
-    |> Seq.reduce (>>)
-    <| robot
+let move instructions robot =
+    (robot, instructions)
+    ||> Seq.fold (fun robot instruction -> robot |> execute instruction)
