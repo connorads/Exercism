@@ -1,6 +1,6 @@
 export const toRna = (dna) => {
-  return Array.prototype.map.call(dna, char => {
-    switch(char) {
+  return Array.from(dna).map(nucleotide => {
+    switch(nucleotide) {
       case 'G': return 'C';
       case 'C': return 'G';
       case 'T': return 'A';
