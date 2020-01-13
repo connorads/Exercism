@@ -23,6 +23,6 @@ export class ResistorColor {
     const [color1, color2] = this.colors;
     const first = this.bandOrdering.indexOf(color1).toString();
     const second = this.bandOrdering.indexOf(color2).toString();
-    return parseInt(first + second);
+    return parseInt(`${first}${second}`);
   };
 }
