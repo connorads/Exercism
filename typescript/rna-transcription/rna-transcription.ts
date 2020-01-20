@@ -1,4 +1,11 @@
 class Transcriptor {
+  private dnaToRnaMap = new Map([
+    ["G", "C"],
+    ["C", "G"],
+    ["T", "A"],
+    ["A", "U"]
+  ]);
+
   toRna(dna: string): string {
     return Array.from(dna)
       .map(nucleotide => {
@@ -9,13 +16,6 @@ class Transcriptor {
       })
       .join("");
   }
-
-  private dnaToRnaMap = new Map([
-    ["G", "C"],
-    ["C", "G"],
-    ["T", "A"],
-    ["A", "U"]
-  ]);
 }
 
 export default Transcriptor;
