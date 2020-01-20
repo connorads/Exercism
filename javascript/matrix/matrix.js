@@ -10,6 +10,9 @@ export class Matrix {
   }
 
   get columns() {
-    return this.matrix[0].map((_, i) => this.matrix.map(row => row[i]));
+    if(!this._columns)
+      this._columns = this.matrix[0].map((_, i) => this.matrix.map(row => row[i]));
+
+    return this._columns;
   }
 }
