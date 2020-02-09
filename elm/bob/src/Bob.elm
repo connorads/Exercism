@@ -3,11 +3,6 @@ module Bob exposing (hey)
 import String
 
 
-isLetter : Char -> Bool
-isLetter char =
-    Char.isUpper char || Char.isLower char
-
-
 hey : String -> String
 hey remark =
     let
@@ -18,7 +13,7 @@ hey remark =
             String.endsWith "?" trimmedRemark
 
         yelling =
-            trimmedRemark == String.toUpper trimmedRemark && String.any isLetter trimmedRemark
+            String.any Char.isAlpha trimmedRemark && not (String.any Char.isLower trimmedRemark)
 
         silence =
             String.isEmpty trimmedRemark
