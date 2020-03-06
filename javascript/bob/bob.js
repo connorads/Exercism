@@ -5,17 +5,13 @@ export const hey = message => {
 
   if (silence) {
     return "Fine. Be that way!";
+  } else if (question && yelling) {
+    return "Calm down, I know what I'm doing!";
   } else if (question) {
-    if (yelling) {
-      return "Calm down, I know what I'm doing!";
-    } else {
-      return "Sure.";
-    }
+    return "Sure.";
+  } else if (!question && yelling) {
+    return "Whoa, chill out!";
   } else {
-    if (yelling) {
-      return "Whoa, chill out!";
-    } else {
-      return "Whatever.";
-    }
+    return "Whatever.";
   }
 };
