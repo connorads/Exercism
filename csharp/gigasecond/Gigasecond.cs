@@ -2,7 +2,7 @@ using System;
 
 public static class Gigasecond
 {
-    private const double OneGigasecondInMilliseconds = 1e12;
+    private const double OneGigasecond = 1e9;
 
-    public static DateTime Add(DateTime moment) => moment.AddMilliseconds(OneGigasecondInMilliseconds);
+    public static DateTime Add(DateTime moment) => moment.AddSeconds(OneGigasecond);
 }
