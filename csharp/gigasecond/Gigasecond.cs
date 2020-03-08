@@ -2,8 +2,7 @@ using System;
 
 public static class Gigasecond
 {
-    private const long OneGigasecondInTicks = 1000000000000L * TimeSpan.TicksPerMillisecond;
+    private const double OneGigasecondInMilliseconds = 1e12;
 
-    public static DateTime Add(DateTime moment) =>
-        new DateTime(moment.Ticks + OneGigasecondInTicks);
+    public static DateTime Add(DateTime moment) => moment.AddMilliseconds(OneGigasecondInMilliseconds);
 }
