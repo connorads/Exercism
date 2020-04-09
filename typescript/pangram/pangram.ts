@@ -1,10 +1,10 @@
 export default class Pangram {
-  constructor(private input: string) {}
+  constructor(private sentence: string) {}
 
   isPangram(): boolean {
-    this.input = this.input.toLowerCase();
+    this.sentence = this.sentence.toLowerCase();
     return [..."abcdefghijklmnopqrstuvwxyz"].every(letter =>
-      this.input.includes(letter)
+      this.sentence.includes(letter)
     );
   }
 }
