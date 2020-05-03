@@ -14,14 +14,14 @@ export const rows = (numberOfRows) => {
   return rows;
 };
 
-function getCurrentRow(row) {
-  return row
+function getCurrentRow(previousRow) {
+  return previousRow
     ? [
-        ...row.map((number, index) => {
+        ...previousRow.map((number, index) => {
           if (index === 0) {
             return 1;
           }
-          return number + row[index - 1];
+          return number + previousRow[index - 1];
         }),
         1,
       ]
