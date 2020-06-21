@@ -1,8 +1,12 @@
 export const rows = (numberOfRows) => {
-  let rows = [];
+  if (numberOfRows === 0) {
+    return [];
+  }
+
+  const rows = [[1]];
 
   for (
-    let currentRowNumber = 0;
+    let currentRowNumber = 1;
     currentRowNumber < numberOfRows;
     currentRowNumber++
   ) {
@@ -14,16 +18,12 @@ export const rows = (numberOfRows) => {
   return rows;
 };
 
-function getCurrentRow(previousRow) {
-  return previousRow
-    ? [
-        ...previousRow.map((number, index) => {
-          if (index === 0) {
-            return 1;
-          }
-          return number + previousRow[index - 1];
-        }),
-        1,
-      ]
-    : [1];
-}
+const getCurrentRow = (previousRow) => [
+  ...previousRow.map((number, index) => {
+    if (index === 0) {
+      return 1;
+    }
+    return number + previousRow[index - 1];
+  }),
+  1,
+];
