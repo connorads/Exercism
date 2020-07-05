@@ -1,27 +1,17 @@
-type Responses =
-  | "Fine. Be that way!"
-  | "Calm down, I know what I'm doing!"
-  | "Sure."
-  | "Whoa, chill out!"
-  | "Whatever.";
+const silence = (message: string): boolean => message.trim() === "";
+const question = (message: string): boolean => message.trimEnd().endsWith("?");
+const yelling = (message: string): boolean =>
+  message === message.toUpperCase() && message.match(/[a-z]/i) ? true : false;
 
 class Bob {
-  hey = (message: string): Responses => {
-    const silence = message.trim() === "";
-
-    if (silence) {
+  hey = (message: string) => {
+    if (silence(message)) {
       return "Fine. Be that way!";
-    }
-
-    const yelling =
-      message === message.toUpperCase() && message.match(/[a-z]/i);
-    const question = message.trimEnd().endsWith("?");
-
-    if (question && yelling) {
+    } else if (question(message) && yelling(message)) {
       return "Calm down, I know what I'm doing!";
-    } else if (question) {
+    } else if (question(message)) {
       return "Sure.";
-    } else if (!question && yelling) {
+    } else if (!question(message) && yelling(message)) {
       return "Whoa, chill out!";
     } else {
       return "Whatever.";
