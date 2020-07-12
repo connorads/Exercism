@@ -1,3 +1,6 @@
+const parseRows = (matrix: string): number[][] =>
+  matrix.split("\n").map((row) => row.split(" ").map((n) => parseInt(n)));
+
 const transpose = (matrix: number[][]): number[][] => {
   return matrix[0].map((_, i) => matrix.map((row) => row[i]));
 };
@@ -7,9 +10,7 @@ class Matrix {
   private _columns?: number[][];
 
   constructor(matrix: string) {
-    this._rows = matrix
-      .split("\n")
-      .map((row) => row.split(" ").map((n) => parseInt(n)));
+    this._rows = parseRows(matrix);
   }
 
   get rows(): number[][] {
