@@ -13,11 +13,11 @@ class Matrix {
     this._rows = parseRows(matrix);
   }
 
-  get rows(): number[][] {
+  get rows(): readonly number[][] {
     return this._rows;
   }
 
-  get columns(): number[][] {
+  get columns(): readonly number[][] {
     if (!this._columns) {
       this._columns = transpose(this._rows);
     }
