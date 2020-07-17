@@ -59,6 +59,19 @@ describe("Robot", () => {
     expect(usedNames.size).toEqual(NUMBER_OF_ROBOTS + 1);
   });
 
+  it("should set a unique name for each robot", () => {
+    const NUMBER_OF_ROBOTS = 10000;
+    const usedNames = new Set();
+
+    usedNames.add(robot.name);
+    for (let i = 0; i < NUMBER_OF_ROBOTS; i++) {
+      robot = new RobotName();
+      usedNames.add(robot.name);
+    }
+
+    expect(usedNames.size).toEqual(NUMBER_OF_ROBOTS + 1);
+  });
+
   it("new names should not be sequential", () => {
     const name1 = robot.name;
     const name2 = new RobotName().name;
