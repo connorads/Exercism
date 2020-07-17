@@ -1,19 +1,12 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.prev = undefined;
-    this.next = undefined;
-  }
-}
-
 export class LinkedList {
   constructor() {
     this.head = undefined;
     this.tail = undefined;
+    this._count = 0;
   }
 
   push(value) {
-    const node = new Node(value);
+    const node = { value };
     if (!this.head) {
       this.head = node;
     }
@@ -22,12 +15,14 @@ export class LinkedList {
       node.prev = this.tail;
     }
     this.tail = node;
+    this._count++;
   }
 
   pop() {
     if (this.tail) {
       const value = this.tail.value;
       this.tail = this.tail.prev;
+      this._count--;
       return value;
     }
   }
@@ -36,12 +31,13 @@ export class LinkedList {
     if (this.head) {
       const value = this.head.value;
       this.head = this.head.next;
+      this._count--;
       return value;
     }
   }
 
   unshift(value) {
-    const node = new Node(value);
+    const node = { value };
     if (!this.tail) {
       this.tail = node;
     }
@@ -50,6 +46,7 @@ export class LinkedList {
       node.next = this.head;
     }
     this.head = node;
+    this._count++;
   }
 
   delete(value) {
@@ -66,21 +63,13 @@ export class LinkedList {
           currentNode.prev.next = currentNode.next;
           currentNode.next.prev = currentNode.prev;
         }
+        this._count--;
       }
       currentNode = currentNode.next;
     } while (!valueFound && currentNode);
   }
 
   count() {
-    if (!this.head || !this.tail) {
-      return 0;
-    }
-    let count = 1;
-    let currentNode = this.head;
-    while (currentNode !== this.tail) {
-      count++;
-      currentNode = currentNode.next;
-    }
-    return count;
+    return this._count;
   }
 }
