@@ -14,7 +14,7 @@ bool is_armstrong_number(int candidate)
     n = candidate;
     while (n > 0)
     {
-        sum += pow(n % 10, count);
+        sum += round(pow(n % 10, count));
         n /= 10;
     }
 
