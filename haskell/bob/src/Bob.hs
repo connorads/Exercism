@@ -4,14 +4,14 @@ import Data.Char (isSpace, toLower, toUpper)
 import Data.List (dropWhileEnd, isSuffixOf)
 
 responseFor :: String -> String
-responseFor xs
+responseFor input
   | question && yelling = "Calm down, I know what I'm doing!"
   | question = "Sure."
   | yelling = "Whoa, chill out!"
   | silence = "Fine. Be that way!"
   | otherwise = "Whatever."
   where
-    trimmed = (dropWhileEnd isSpace . dropWhile isSpace) xs
+    trimmed = (dropWhileEnd isSpace . dropWhile isSpace) input
     question = "?" `isSuffixOf` trimmed
-    yelling = map toUpper xs == xs && map toLower xs /= xs
+    yelling = map toUpper input == input && map toLower input /= input
     silence = trimmed == ""
