@@ -15,5 +15,5 @@ toNucleotide c = Left ("Cannot convert '" ++ [c] ++ "' to Nucleotide")
 nucleotideCounts :: String -> Either String (Map Nucleotide Int)
 nucleotideCounts =
   foldM
-    (\m c -> fmap (\n -> adjust (+ 1) n m) (toNucleotide c))
+    (\m c -> (\n -> adjust (+ 1) n m) <$> toNucleotide c)
     (fromList [(A, 0), (C, 0), (G, 0), (T, 0)])
