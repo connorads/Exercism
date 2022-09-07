@@ -1,14 +1,12 @@
 class Microwave
-  def initialize(seconds)
-    @minutes = seconds / 100
-    @seconds = seconds % 100
-    if @seconds >= 60
-      @minutes += 1
-      @seconds -= 60
-    end
-  end
+  attr_reader :timer
 
-  def timer
-    return "#{"%02d" % @minutes}:#{"%02d" % @seconds}"
+  def initialize(input)
+    minutes, seconds = input.divmod(100)
+    if seconds >= 60
+      minutes += 1
+      seconds -= 60
+    end
+    @timer = "%02d:%02d" % [minutes, seconds]
   end
 end
