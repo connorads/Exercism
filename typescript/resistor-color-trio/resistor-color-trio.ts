@@ -1,21 +1,18 @@
-function resistorToNumber(resistor: string): number {
-  switch (resistor.toLowerCase()) {
-    case "black": return 0;
-    case "brown": return 1;
-    case "red": return 2;
-    case "orange": return 3;
-    case "yellow": return 4;
-    case "green": return 5;
-    case "blue": return 6;
-    case "violet": return 7;
-    case "grey": return 8;
-    case "white": return 9;
-    default: throw new Error(`resistor color not recognised: "${resistor}"`);
-  }
-}
+const Colors =
+  [`black`,
+    `brown`,
+    `red`,
+    `orange`,
+    `yellow`,
+    `green`,
+    `blue`,
+    `violet`,
+    `grey`,
+    `white`] as const
 
-export function decodedResistorValue(resistors: [string, string, string]): string {
-  const trailingZeros = new Array(resistorToNumber(resistors[2])).fill(0).join("")
-  const ohms = `${resistorToNumber(resistors[0])}${resistorToNumber(resistors[1])}${trailingZeros}`
-  return !ohms.endsWith("000") ? `${ohms} ohms` : `${ohms.slice(0, ohms.length - 3)} kiloohms`
+type Color = typeof Colors[number];
+
+export function decodedResistorValue([band1, band2, band3]: [Color, Color, Color]): string {
+  const ohms = ((Colors.indexOf(band1) * 10) + Colors.indexOf(band2)) * (10 ** Colors.indexOf(band3))
+  return ohms < 1000 ? `${ohms} ohms` : `${ohms / 1000} kiloohms`
 }
