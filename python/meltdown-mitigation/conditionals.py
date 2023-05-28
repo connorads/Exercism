@@ -40,14 +40,13 @@ def reactor_efficiency(voltage: int | float, current: int | float, theoretical_m
 
     generated_power = voltage * current
     efficiency = (generated_power / theoretical_max_power) * 100
-    if (efficiency >= 80):
+    if efficiency >= 80:
         return "green"
-    elif (efficiency >= 60):
+    if efficiency >= 60:
         return "orange"
-    elif (efficiency >= 30):
+    if efficiency >= 30:
         return "red"
-    else:
-        return "black"
+    return "black"
 
 
 def fail_safe(temperature: int | float, neutrons_produced_per_second: int | float, threshold: int | float) -> Literal["LOW", "NORMAL", "DANGER"]:
@@ -64,9 +63,8 @@ def fail_safe(temperature: int | float, neutrons_produced_per_second: int | floa
     """
 
     neturon_flux = temperature * neutrons_produced_per_second
-    if (neturon_flux < threshold * 0.9):
+    if neturon_flux < threshold * 0.9:
         return "LOW"
-    elif (neturon_flux <= threshold * 1.1):
+    if neturon_flux <= threshold * 1.1:
         return "NORMAL"
-    else:
-        return "DANGER"
+    return "DANGER"
