@@ -1,3 +1,6 @@
+""" Module for currency exchange. """
+
+
 def exchange_money(budget: float, exchange_rate: float) -> float:
     """ Calculates the amount of foreign currency you can get for your money.
 
