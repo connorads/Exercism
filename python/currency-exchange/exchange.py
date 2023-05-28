@@ -69,4 +69,4 @@ def exchangeable_value(budget: float, exchange_rate: float, spread: int, denomin
     exchange_rate_with_spread = exchange_rate * (1 + spread / 100)
     exchanged_value = exchange_money(budget, exchange_rate_with_spread)
     number_of_bills = get_number_of_bills(exchanged_value, denomination)
-    return get_value_of_bills(number_of_bills, denomination)
+    return get_value_of_bills(denomination, number_of_bills)
