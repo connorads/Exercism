@@ -1,4 +1,5 @@
 """Functions for creating, transforming, and adding prefixes to strings."""
+import re
 from typing import List
 
 
@@ -57,6 +58,5 @@ def adjective_to_verb(sentence: str, index: int) -> str:
     For example, ("It got dark as the sun set", 2) becomes "darken".
     """
 
-    words = sentence.split()
-    word = words[index].removesuffix('.')
-    return word + 'en'
+    words = re.findall(r'\w+', sentence)
+    return words[index] + 'en'
