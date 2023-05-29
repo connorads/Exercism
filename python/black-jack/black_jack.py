@@ -4,17 +4,18 @@ How to play blackjack:    https://bicyclecards.com/how-to-play/blackjack/
 "Standard" playing cards: https://en.wikipedia.org/wiki/Standard_52-card_deck
 """
 
-from typing import Callable, Literal
+from typing import Literal
 
 
 Card = Literal['A', '2', '3', '4', '5',
                '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
 
-def value_of_card(card: Card) -> int:
+def value_of_card(card: Card, ace_value: Literal[1, 11] = 1) -> int:
     """Determine the scoring value of a card.
 
     :param card: Card - given card.
+    :param ace_value: int - value of ace card.  Default is 1.
     :return: int - value of a given card.  See below for values.
 
     1.  'J', 'Q', or 'K' (otherwise known as "face cards") = 10
@@ -25,8 +26,9 @@ def value_of_card(card: Card) -> int:
     if card in ('J', 'Q', 'K'):
         return 10
     if card == 'A':
-        return 1
+        return ace_value
     return int(card)
+
 
 def higher_card(card_one: Card, card_two: Card) -> Card | tuple[Card, Card]:
     """Determine which card has a higher value in the hand.
@@ -39,9 +41,9 @@ def higher_card(card_one: Card, card_two: Card) -> Card | tuple[Card, Card]:
     3.  '2' - '10' = numerical value.
     """
 
-    if value_of_card(card_one) > value_of_card(card_two):
+    if (one_value := value_of_card(card_one)) > (two_value := value_of_card(card_two)):
         return card_one
-    if value_of_card(card_one) < value_of_card(card_two):
+    if two_value > one_value: 
         return card_two
     return (card_one, card_two)
 
@@ -57,8 +59,7 @@ def value_of_ace(card_one: Card, card_two: Card) -> int:
     3.  '2' - '10' = numerical value.
     """
 
-    value_of_card_when_ace_is_high: Callable[[Card], int]  = lambda c: value_of_card(c) if c != 'A' else 11
-    return 11 if value_of_card_when_ace_is_high(card_one) + value_of_card_when_ace_is_high(card_two) <= 10 else 1
+    return 11 if value_of_card(card_one, 11) + value_of_card(card_two, 11) <= 10 else 1
 
 
 def is_blackjack(card_one: Card, card_two: Card) -> bool:
