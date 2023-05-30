@@ -12,7 +12,7 @@ def response(hey_bob: str) -> str:
     :return: str - Bob's response.
     """
     hey_bob = hey_bob.strip()
-    if hey_bob == "":
+    if not hey_bob:
         return "Fine. Be that way!"
     if hey_bob.isupper() and hey_bob.endswith("?"):
         return "Calm down, I know what I'm doing!"
