@@ -58,8 +58,8 @@ def average_even_is_average_odd(hand: list[int]) -> bool:
     :param hand: list - cards in hand.
     :return: bool - are even and odd averages equal?
     """
-    odds = hand[1:len(hand):2]
-    evens = hand[0:len(hand):2]
+    odds = hand[1::2]
+    evens = hand[0::2]
     return card_average(evens) == card_average(odds)
 
 
