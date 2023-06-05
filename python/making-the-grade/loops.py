@@ -55,7 +55,10 @@ def student_ranking(student_scores: list[int], student_names: list[str]) -> list
     :param student_names: list - of string names by exam score in descending order.
     :return: list - of strings in format ["<rank>. <student name>: <score>"].
     """
-    return [f'{rank}. {name}: {score}' for rank, (name, score) in enumerate(zip(student_names, student_scores), start=1)]
+    students_with_scores = zip(student_names, student_scores)
+    return [f'{rank}. {name}: {score}'
+            for rank, (name, score) in
+            enumerate(students_with_scores, start=1)]
 
 
 def perfect_score(student_info: list[list[str | int]]) -> list[str | int]:
