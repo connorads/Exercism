@@ -35,10 +35,7 @@ def compare_records(azara_record: AzaraRecord, rui_record: RuiRecord) -> bool:
     :return: bool - do the coordinates match?
     """
 
-    if rui_record[1] == convert_coordinate(get_coordinate(azara_record)):
-        return True
-    else:
-        return False
+    return rui_record[1] == convert_coordinate(get_coordinate(azara_record))
 
 
 def create_record(
@@ -53,8 +50,7 @@ def create_record(
 
     if compare_records(azara_record, rui_record):
         return azara_record + rui_record
-    else:
-        return "not a match"
+    return "not a match"
 
 
 def clean_up(combined_record_group: CombinedRecordGroup) -> str:
