@@ -24,7 +24,7 @@ def convert_coordinate(coordinate: str) -> CoordinateTuple:
     :return: tuple - the string coordinate split into its individual components.
     """
 
-    return (coordinate[0], coordinate[1])
+    return tuple(coordinate)
 
 
 def compare_records(azara_record: AzaraRecord, rui_record: RuiRecord) -> bool:
@@ -64,9 +64,7 @@ def clean_up(combined_record_group: CombinedRecordGroup) -> str:
     (see HINTS.md for an example).
     """
 
-    return "".join(
-        map(
-            lambda record: str((record[0], record[2], record[3], record[4])) + "\n",
-            combined_record_group,
-        )
-    )
+    report = []
+    for item in combined_record_group:
+        report.append(f"{(item[0], item[2], item[3], item[4])}\n")
+    return "".join(report)
