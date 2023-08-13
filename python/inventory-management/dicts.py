@@ -60,4 +60,4 @@ def list_inventory(inventory: Inventory) -> list[tuple[str, int]]:
     :param inventory: dict - an inventory dictionary.
     :return: list of tuples - list of key, value pairs from the inventory dictionary.
     """
-    return [(k, v) for k, v in inventory.items() if v > 0]
+    return [(key, value) for key, value in inventory.items() if value > 0]
