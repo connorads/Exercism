@@ -11,7 +11,7 @@ def create_inventory(items: Items) -> Inventory:
     :return: dict - the inventory dictionary.
     """
 
-    inventory: dict[str, int] = {}
+    inventory: Inventory = {}
     return add_items(inventory, items)
 
 
@@ -50,8 +50,7 @@ def remove_item(inventory: Inventory, item: str) -> Inventory:
     :return: dict - updated inventory with item removed. Current inventory if item does not match.
     """
 
-    if inventory.get(item):
-        inventory.pop(item)
+    inventory.pop(item, None)
     return inventory
 
 
@@ -61,8 +60,4 @@ def list_inventory(inventory: Inventory) -> list[tuple[str, int]]:
     :param inventory: dict - an inventory dictionary.
     :return: list of tuples - list of key, value pairs from the inventory dictionary.
     """
-
-    for item in list(inventory):
-        if inventory[item] == 0:
-            inventory.pop(item)
-    return list(inventory.items())
+    return [(k, v) for k, v in inventory.items() if v > 0]
