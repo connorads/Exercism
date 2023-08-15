@@ -117,7 +117,7 @@ def separate_appetizers(dishes: list[str], appetizers: list[str]) -> list[str]:
     return list(set(dishes) - set(appetizers))
 
 
-def singleton_ingredients(dishes: list[set[str]], _: set[str]) -> set[str]:
+def singleton_ingredients(dishes: list[set[str]], intersection: set[str]) -> set[str]:
     """Determine which `dishes` have a singleton ingredient (an ingredient that only appears once across dishes).
 
     :param dishes: list - of ingredient sets.
@@ -132,11 +132,4 @@ def singleton_ingredients(dishes: list[set[str]], _: set[str]) -> set[str]:
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    # How to use second function parameter `intersection`? 😅
-    all_ingredients = compile_ingredients(dishes)
-
-    return {
-        ingredient
-        for ingredient in all_ingredients
-        if sum(ingredient in dish for dish in dishes) == 1
-    }
+    return set(ingredient for dish in dishes for ingredient in dish - intersection)
