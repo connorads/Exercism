@@ -10,7 +10,7 @@ def get_list_of_wagons(*wagons: int) -> list[int]:
     :param: arbitrary number of wagons.
     :return: list - list of wagons.
     """
-    return list(wagons)
+    return [*wagons]
 
 
 def fix_list_of_wagons(
@@ -38,10 +38,7 @@ def add_missing_stops(route: Route1, **stops: str) -> Route2:
     :return: dict - updated route dictionary.
     """
 
-    return {
-        **route,
-        "stops": list(stops.values()),
-    }
+    return {**route, "stops": [*stops.values()]}
 
 
 MoreRouteInfo = TypedDict("MoreRouteInfo", {"length": str, "speed": str})
@@ -73,10 +70,5 @@ def fix_wagon_depot(wagons_rows: WagonRowList) -> WagonRowList:
     :return: list[list[tuple]] - list of rows of wagons.
     """
 
-    colour_1, colour_2, colour_3 = wagons_rows
-
-    return [
-        [colour_1[0], colour_2[0], colour_3[0]],
-        [colour_1[1], colour_2[1], colour_3[1]],
-        [colour_1[2], colour_2[2], colour_3[2]],
-    ]
+    transposed = [*zip(*wagons_rows)]
+    return [[*row] for row in transposed]
