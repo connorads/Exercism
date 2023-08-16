@@ -70,5 +70,4 @@ def fix_wagon_depot(wagons_rows: WagonRowList) -> WagonRowList:
     :return: list[list[tuple]] - list of rows of wagons.
     """
 
-    transposed = [*zip(*wagons_rows)]
-    return [[*row] for row in transposed]
+    return [[*row] for row in zip(*wagons_rows)]
