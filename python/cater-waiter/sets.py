@@ -40,7 +40,7 @@ def check_drinks(drink_name: str, drink_ingredients: list[str]) -> str:
 
     """
 
-    is_cocktail = any(ingredient in ALCOHOLS for ingredient in drink_ingredients)
+    is_cocktail = bool(set(drink_ingredients) & set(ALCOHOLS))
     return f"{drink_name} {['Mocktail', 'Cocktail'][is_cocktail]}"
 
 
@@ -57,23 +57,19 @@ def categorize_dish(dish_name: str, dish_ingredients: set[str]) -> str:
 
     """
 
-    def is_dish(category: set[str]) -> bool:
-        return all(ingredient in category for ingredient in dish_ingredients)
+    categories = {
+        "VEGAN": VEGAN,
+        "VEGETARIAN": VEGETARIAN,
+        "PALEO": PALEO,
+        "KETO": KETO,
+        "OMNIVORE": OMNIVORE,
+    }
 
-    if is_dish(VEGAN):
-        category = "VEGAN"
-    elif is_dish(VEGETARIAN):
-        category = "VEGETARIAN"
-    elif is_dish(PALEO):
-        category = "PALEO"
-    elif is_dish(KETO):
-        category = "KETO"
-    elif is_dish(OMNIVORE):
-        category = "OMNIVORE"
-    else:
-        raise ValueError(f"Cannot categorise: {dish_name}")
+    for category_name, category_ingredients in categories.items():
+        if all(ingredient in category_ingredients for ingredient in dish_ingredients):
+            return f"{dish_name}: {category_name}"
 
-    return f"{dish_name}: {category}"
+    raise ValueError(f"Cannot categorise: {dish_name}")
 
 
 def tag_special_ingredients(dish: tuple[str, list[str]]) -> tuple[str, set[str]]:
@@ -87,8 +83,7 @@ def tag_special_ingredients(dish: tuple[str, list[str]]) -> tuple[str, set[str]]
     SPECIAL_INGREDIENTS constant imported from `sets_categories_data.py`.
     """
 
-    special_ingredients = set(filter(lambda i: i in SPECIAL_INGREDIENTS, dish[1]))
-    return dish[0], special_ingredients
+    return dish[0], set(dish[1]) & SPECIAL_INGREDIENTS
 
 
 def compile_ingredients(dishes: list[set[str]]) -> set[str]:
@@ -100,7 +95,7 @@ def compile_ingredients(dishes: list[set[str]]) -> set[str]:
     This function should return a `set` of all ingredients from all listed dishes.
     """
 
-    return set(ingredient for dish in dishes for ingredient in dish)
+    return set[str].union(*dishes)
 
 
 def separate_appetizers(dishes: list[str], appetizers: list[str]) -> list[str]:
