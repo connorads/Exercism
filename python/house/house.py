@@ -1,6 +1,6 @@
 """Recite the nursery rhyme 'This is the House that Jack Built'."""
 
-NOUNS = (
+PARTS = (
     "the house that Jack built.",
     "the malt that lay in ",
     "the rat that ate ",
@@ -16,12 +16,17 @@ NOUNS = (
 )
 
 
+def get(verse: int) -> str:
+    """Return the verse for the given verse number.
+
+    The verse number is 1-based.
+    """
+    return "This is " + "".join([PARTS[i] for i in range(verse - 1, -1, -1)])
+
+
 def recite(start_verse: int, end_verse: int) -> list[str]:
-    """Recite the nursery rhyme from start_verse to end_verse."""
-    nursery_rhyme: list[str] = []
-    for verse_n in range(start_verse - 1, end_verse):
-        verse = "This is "
-        for noun_n in range(verse_n, -1, -1):
-            verse += NOUNS[noun_n]
-        nursery_rhyme.append(verse)
-    return nursery_rhyme
+    """Recite the nursery rhyme from start_verse to end_verse.
+
+    The verse numbers are 1-based.
+    """
+    return [get(verse) for verse in range(start_verse, end_verse + 1)]
