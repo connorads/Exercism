@@ -22,8 +22,8 @@ def fix_list_of_wagons(
     :parm missing_wagons: list - the list of missing wagons.
     :return: list - list of wagons.
     """
-    w_a, w_b, w_1, *rest_wagons = each_wagons_id
-    return [w_1, *missing_wagons, *rest_wagons, w_a, w_b]
+    one, two, locamotive, *rest_wagons = each_wagons_id
+    return [locamotive, *missing_wagons, *rest_wagons, one, two]
 
 
 Route1 = TypedDict("Route1", {"from": str, "to": str})
@@ -70,4 +70,4 @@ def fix_wagon_depot(wagons_rows: WagonRowList) -> WagonRowList:
     :return: list[list[tuple]] - list of rows of wagons.
     """
 
-    return [[*row] for row in zip(*wagons_rows)]
+    return list(map(list, zip(*wagons_rows)))
