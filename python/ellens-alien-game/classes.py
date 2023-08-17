@@ -23,7 +23,7 @@ class Alien:
 
     total_aliens_created = 0
 
-    def __init__(self, x_coordinate: int, y_coordinate: int):
+    def __init__(self, x_coordinate: int, y_coordinate: int) -> None:
         """Initialize Alien object."""
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
@@ -45,7 +45,6 @@ class Alien:
 
     def collision_detection(self, _: Self) -> None:
         """Implementation TBD."""
-        return None
 
 
 def new_aliens_collection(coordinates: list[tuple[int, int]]) -> list[Alien]:
