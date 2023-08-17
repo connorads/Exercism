@@ -1,6 +1,7 @@
 """Convert seconds to years on different planets in the solar system."""
 
-from typing import Literal
+from types import MethodType
+from typing import Callable, Literal, Self
 
 Planet = Literal[
     "earth", "mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune"
@@ -25,37 +26,9 @@ class SpaceAge:
     def __init__(self, seconds: int):
         self.seconds = seconds
 
-    def _on_planet(self, planet: Planet) -> float:
-        return round(self.seconds / SECONDS_IN_PLANET_YEAR[planet], 2)
+        for planet, _ in SECONDS_IN_PLANET_YEAR.items():
+            method = self._on_planet(planet)
+            setattr(self, "on_" + planet, MethodType(method, self))
 
-    def on_earth(self) -> float:
-        """Return the age in Earth years"""
-        return self._on_planet("earth")
-
-    def on_mercury(self) -> float:
-        """Return the age in Mercurary years"""
-        return self._on_planet("mercury")
-
-    def on_venus(self) -> float:
-        """Return the age in Venus years"""
-        return self._on_planet("venus")
-
-    def on_mars(self) -> float:
-        """Return the age in Mars years"""
-        return self._on_planet("mars")
-
-    def on_jupiter(self) -> float:
-        """Return the age in Jupiter years"""
-        return self._on_planet("jupiter")
-
-    def on_saturn(self) -> float:
-        """Return the age in Saturn years"""
-        return self._on_planet("saturn")
-
-    def on_uranus(self) -> float:
-        """Return the age in Uranus years"""
-        return self._on_planet("uranus")
-
-    def on_neptune(self) -> float:
-        """Return the age in Neptune years"""
-        return self._on_planet("neptune")
+    def _on_planet(self, planet: Planet) -> Callable[[Self], float]:
+        return lambda self: round(self.seconds / SECONDS_IN_PLANET_YEAR[planet], 2)
